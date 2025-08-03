@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class BankIDServiceTest extends TestCase
 {
-    const TEST_PERSONAL_NUMBER = '199202271434';
+    const TEST_PERSONAL_NUMBER = '';
 
     /**
      * @var BankIDService $bankIDService
