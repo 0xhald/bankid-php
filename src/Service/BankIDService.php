@@ -48,21 +48,14 @@ class BankIDService
     }
 
     /**
-     * @param string|null $personalNumber The personal number of the user. String. 12 digits. Century must be included.
      * @return OrderResponse
      * @throws ClientException
      */
-    public function getAuthResponse($personalNumber = null)
+    public function getAuthResponse()
     {
         $parameters = [
-            'endUserIp'      => $this->endUserIp,
-            'requirement'    => [
-                'allowFingerprint' => true,
-            ],
+            'endUserIp'      => $this->endUserIp
         ];
-        if ($personalNumber) {
-            $parameters['personalNumber'] = $personalNumber;
-        }
 
         $responseData = $this->client->post('auth', ['json' => $parameters]);
 
@@ -74,28 +67,21 @@ class BankIDService
 
     /**
      * @param string|null $personalNumber The personal number of the user. String. 12 digits. Century must be included.
-     * @param string $userVisibleData The text to be displayed and signed.
-     * @param string $userHiddenData Data not displayed to the user
+     * @param string $userVisibleData Text displayed to the user during the order. The purpose is to provide context, thereby enabling the user to detect identification errors and avert fraud attempts. The text can be formatted using CR, LF and CRLF for new lines. The text must be encoded as UTF-8 and then base 64 encoded.
      * @param string $userVisibleDataFormat Format for data displayed to the user
      * @return OrderResponse
      * @throws ClientException
      */
-    public function getSignResponse($personalNumber, $userVisibleData, $userHiddenData = '', $userVisibleDataFormat = null)
+    public function getSignResponse($userVisibleData = null, $userVisibleDataFormat = null)
     {
+        if (is_null($userVisibleData)) {
+            throw new \InvalidArgumentException('userVisibleData field is required');
+        }
+
         $parameters = [
             'endUserIp'       => $this->endUserIp,
             'userVisibleData' => base64_encode($userVisibleData),
-            'requirement'     => [
-                'allowFingerprint' => true,
-            ],
         ];
-        if ($personalNumber) {
-            $parameters['personalNumber'] = $personalNumber;
-        }
-
-        if (!empty($userHiddenData)) {
-            $parameters['userNonVisibleData'] = base64_encode($userHiddenData);
-        }
 
         if (!is_null($userVisibleDataFormat)) {
             $parameters['userVisibleDataFormat'] = $userVisibleDataFormat;
