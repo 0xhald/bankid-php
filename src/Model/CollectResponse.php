@@ -17,6 +17,10 @@ namespace Dimafe6\BankID\Model;
  */
 class CollectResponse extends AbstractResponseModel
 {
+    public ?string $orderRef = null;
+    public ?string $status = null;
+    public ?string $hintCode = null;
+    public ?CompletionData $completionData = null;
     const STATUS_COMPLETED = 'complete';
     const STATUS_PENDING = 'pending';
     const STATUS_FAILED = 'failed';

@@ -18,5 +18,9 @@ namespace Dimafe6\BankID\Model;
  */
 class CompletionData
 {
-
+    public $user;
+    public $device;
+    public $cert;
+    public ?string $signature = null;
+    public ?string $ocspResponse = null;
 }

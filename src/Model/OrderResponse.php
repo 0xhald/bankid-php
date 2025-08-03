@@ -12,5 +12,8 @@ namespace Dimafe6\BankID\Model;
  */
 class OrderResponse extends AbstractResponseModel
 {
-
+    public ?string $orderRef = null;
+    public ?string $autoStartToken = null;
+    public ?string $qrStartToken = null;
+    public ?string $qrStartSecret = null;
 }
