@@ -22,7 +22,7 @@ class BankIDServiceTest extends TestCase
             isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : '127.0.0.1',
             [
                 'verify' => false,
-                'cert'   => [realpath(__DIR__ . '/../FPTestcert3_20200618.p12'), "qwerty123"] // qwerty123 = default password from BankID,
+                'cert'   => [realpath(__DIR__ . '/../FPTestcert5_20240610.p12'), "qwerty123"] // qwerty123 = default password from BankID,
             ]
         );
     }
